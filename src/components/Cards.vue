@@ -1,6 +1,6 @@
 <template>
-    <div class="col text-center text-light px-3">
-        <div class="card-wrapper card-bg-color p-3">
+    <div class="col text-center text-light px-3 mb-3">
+        <div class="h-100 card-wrapper card-bg-color p-3">
             <img :src="image" alt="">
             <h4>{{ title }}</h4>
             <h5>{{ author }}</h5>
