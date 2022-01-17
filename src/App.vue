@@ -17,6 +17,11 @@ export default {
     Header,
     Main,
   },
+  data() {
+    return {
+  
+    }
+  },
 };
 </script>
 
