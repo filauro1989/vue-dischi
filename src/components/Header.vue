@@ -1,5 +1,5 @@
 <template>
-    <div class="container bg-color">
+    <div class="container-fluid bg-color">
         <img src="../assets/spotify-logo.png" alt="">
     </div>
 </template>
@@ -23,7 +23,7 @@ export default {
 .bg-color {
     background-color: $cardBackground;
 }
-.container {
+.container-fluid {
     img {
         height: 50px;
         margin: 0.7em 0;
