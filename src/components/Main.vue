@@ -17,7 +17,7 @@
                             <h6>1988</h6>
                         </div>
                     </div> -->
-                    <Cards v-for="(card, index) in filteredCards" :key="index" :image="card.poster" :title="card.title" :author="card.author" :year="card.year" :genre="card.genre">
+                    <Cards v-for="(card, index) in getSelect" :key="index" :image="card.poster" :title="card.title" :author="card.author" :year="card.year" :genre="card.genre">
                     </Cards>
                 </div>
             </div>
@@ -40,9 +40,8 @@ export default {
     },
     data() {
         return {
-            cards: null,
             filteredCards: null,
-            selectedValue: '',
+            selectedValue: 'all',
             queryApi: 'https://flynn.boolean.careers/exercises/api/array/music'
         }
     },
@@ -50,9 +49,9 @@ export default {
       getSelect() {
         // this.filteredCards = this.cards;
         if (this.selectedValue === 'all') {
-          console.log(this.selectedValue);
           return this.filteredCards;
         }
+          console.log('beste');
         return this.filteredCards.filter((element) => element.genre.toLowerCase().includes(this.selectedValue.toLowerCase()));       
       }
     },
@@ -68,7 +67,6 @@ export default {
       getCard() {
         axios.get(this.queryApi)
         .then((result) => {
-          this.cards = result.data.response;
           this.filteredCards = result.data.response;
         })
         .catch((error) => {
