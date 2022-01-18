@@ -1,12 +1,13 @@
 <template>
         <div class="container-fluid bg-color" >
-            <select @change="getValue()" name="genreSelect" id="genreSelect">
+          <Search @doSelect="getValue($event)" />
+            <!-- <select @change="getValue()" name="genreSelect" id="genreSelect">
               <option value="all">All</option>
               <option value="rock">Rock</option>
               <option value="pop">Pop</option>
               <option value="jazz">Jazz</option>
               <option value="metal">Metal</option>
-            </select>
+            </select> -->
             <div v-if="filteredCards" class="w-60 centered pt-6">
                 <div class="row row-cols-5">
                     <!-- <div class="col text-center text-light px-3">
@@ -17,6 +18,8 @@
                             <h6>1988</h6>
                         </div>
                     </div> -->
+
+                    <!-- QUESTO GET SELECT è LA FUNZIONE NEL COMPUTED -->
                     <Cards v-for="(card, index) in getSelect" :key="index" :image="card.poster" :title="card.title" :author="card.author" :year="card.year" :genre="card.genre">
                     </Cards>
                 </div>
@@ -31,12 +34,14 @@
 <script>
 
 import axios from 'axios';
-import Cards from './Cards.vue'
+import Cards from './Cards.vue';
+import Search from './Search.vue'
 
 export default {
     name: 'Main',
     components: {
         Cards,
+        Search,
     },
     data() {
         return {
@@ -51,7 +56,6 @@ export default {
         if (this.selectedValue === 'all') {
           return this.filteredCards;
         }
-          console.log('beste');
         return this.filteredCards.filter((element) => element.genre.toLowerCase().includes(this.selectedValue.toLowerCase()));       
       }
     },
@@ -84,8 +88,12 @@ export default {
       //   return this.filteredCards;
       
       // }
-      getValue() {
-        this.selectedValue = document.getElementById('genreSelect').value;
+      // getValue() {
+      //   this.selectedValue = document.getElementById('genreSelect').value;
+      // },
+      getValue(text) {
+        console.log(text);
+        this.selectedValue = text;
       },
 
     }
