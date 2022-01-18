@@ -17,7 +17,7 @@
                             <h6>1988</h6>
                         </div>
                     </div> -->
-                    <Cards v-for="(card, index) in filteredCards" :key="index +card.id" :image="card.poster" :title="card.title" :author="card.author" :year="card.year">
+                    <Cards v-for="(card, index) in filteredCards" :key="index" :image="card.poster" :title="card.title" :author="card.author" :year="card.year" :genre="card.genre">
                     </Cards>
                 </div>
             </div>
@@ -87,7 +87,7 @@ export default {
       
       // }
       getValue() {
-        return this.selectedValue = document.getElementById('genreSelect').value;
+        this.selectedValue = document.getElementById('genreSelect').value;
       },
 
     }
