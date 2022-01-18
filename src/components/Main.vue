@@ -1,6 +1,13 @@
 <template>
         <div class="container-fluid bg-color" >
-            <div v-if="cards" class="w-60 centered pt-6">
+            <select @change="getSelect()" name="genreSelect" id="genreSelect">
+              <option value="all">All</option>
+              <option value="rock">Rock</option>
+              <option value="pop">Pop</option>
+              <option value="jazz">Jazz</option>
+              <option value="metal">Metal</option>
+            </select>
+            <div v-if="filteredCards" class="w-60 centered pt-6">
                 <div class="row row-cols-5">
                     <!-- <div class="col text-center text-light px-3">
                         <div class="card-wrapper card-bg-color p-3">
@@ -10,7 +17,7 @@
                             <h6>1988</h6>
                         </div>
                     </div> -->
-                    <Cards v-for="(card, index) in cards" :key="index +card.id" :image="card.poster" :title="card.title" :author="card.author" :year="card.year">
+                    <Cards v-for="(card, index) in filteredCards" :key="index +card.id" :image="card.poster" :title="card.title" :author="card.author" :year="card.year">
                     </Cards>
                 </div>
             </div>
@@ -34,24 +41,42 @@ export default {
     data() {
         return {
             cards: null,
+            filteredCards: null,
+            selectedValue: 'all',
+            queryApi: 'https://flynn.boolean.careers/exercises/api/array/music'
         }
     },
     created() {
-        },
+      },
     mounted() {
-        setTimeout(() => {
-            this.getCard();
-        }, 3000);
+      setTimeout(() => {
+        this.getCard();
+        }, 1000);
     
     },
     methods: {
-    getCard() {
-        axios.get('https://flynn.boolean.careers/exercises/api/array/music').then((result) => {
-        this.cards = result.data.response;
-        }).catch((error) => {
+      getCard() {
+        axios.get(this.queryApi)
+        .then((result) => {
+          this.cards = result.data.response;
+          this.filteredCards = result.data.response;
+        })
+        .catch((error) => {
             console.log(error);
         });
-    }
+      },
+      getSelect() {
+        this.selectedValue = document.getElementById('genreSelect').value;
+        this.filteredCards = this.cards;
+        if (this.selectedValue === 'all') {
+          return this.filteredCards;
+        } else {
+          this.filteredCards = this.filteredCards.filter((element) => element.genre.toLowerCase().includes(this.selectedValue.toLowerCase()));
+        }
+        return this.filteredCards;
+      
+      }
+
     }
 }
 </script>
