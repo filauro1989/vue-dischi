@@ -35,7 +35,7 @@
 
 import axios from 'axios';
 import Cards from './Cards.vue';
-import Search from './Search.vue'
+import Search from './Search.vue';
 
 export default {
     name: 'Main',
@@ -92,7 +92,6 @@ export default {
       //   this.selectedValue = document.getElementById('genreSelect').value;
       // },
       getValue(text) {
-        console.log(text);
         this.selectedValue = text;
       },
 
