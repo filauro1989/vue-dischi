@@ -1,6 +1,6 @@
 <template>
         <div class="container-fluid bg-color" >
-            <select @change="getSelect()" name="genreSelect" id="genreSelect">
+            <select @change="getValue()" name="genreSelect" id="genreSelect">
               <option value="all">All</option>
               <option value="rock">Rock</option>
               <option value="pop">Pop</option>
@@ -42,9 +42,19 @@ export default {
         return {
             cards: null,
             filteredCards: null,
-            selectedValue: 'all',
+            selectedValue: '',
             queryApi: 'https://flynn.boolean.careers/exercises/api/array/music'
         }
+    },
+    computed: {
+      getSelect() {
+        // this.filteredCards = this.cards;
+        if (this.selectedValue === 'all') {
+          console.log(this.selectedValue);
+          return this.filteredCards;
+        }
+        return this.filteredCards.filter((element) => element.genre.toLowerCase().includes(this.selectedValue.toLowerCase()));       
+      }
     },
     created() {
       },
@@ -65,17 +75,20 @@ export default {
             console.log(error);
         });
       },
-      getSelect() {
-        this.selectedValue = document.getElementById('genreSelect').value;
-        this.filteredCards = this.cards;
-        if (this.selectedValue === 'all') {
-          return this.filteredCards;
-        } else {
-          this.filteredCards = this.filteredCards.filter((element) => element.genre.toLowerCase().includes(this.selectedValue.toLowerCase()));
-        }
-        return this.filteredCards;
+      // getSelect() {
+      //   this.selectedValue = document.getElementById('genreSelect').value;
+      //   this.filteredCards = this.cards;
+      //   if (this.selectedValue === 'all') {
+      //     return this.filteredCards;
+      //   } else {
+      //     this.filteredCards = this.filteredCards.filter((element) => element.genre.toLowerCase().includes(this.selectedValue.toLowerCase()));
+      //   }
+      //   return this.filteredCards;
       
-      }
+      // }
+      getValue() {
+        return this.selectedValue = document.getElementById('genreSelect').value;
+      },
 
     }
 }
